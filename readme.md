@@ -24,8 +24,8 @@ key_file=~/.oci/oracleidentitycloudservice_XXXXX-04-14-10-33.pem
 ## Prepare deploy on Mac
 
     brew install pipenv oci-cli npm
-    git clone -- my git repo
-    cd my gitrepo
+    git clone https://github.com/axlroden/caprover-oci.git
+    cd caprover-oci
     pipenv install
     pipenv shell
     ansible-galaxy collection install oracle.oci
