@@ -1,0 +1,40 @@
+# Oracle's recommended rules and caprover's requirements
+*filter
+:INPUT ACCEPT [0:0]
+:FORWARD ACCEPT [0:0]
+:OUTPUT ACCEPT [463:49013]
+:InstanceServices - [0:0]
+-A INPUT -m state --state RELATED,ESTABLISHED -j ACCEPT
+-A INPUT -p icmp -j ACCEPT
+-A INPUT -i lo -j ACCEPT
+-A INPUT -p udp --sport 123 -j ACCEPT
+-A INPUT -p tcp -m state --state NEW -m tcp --dport 22 -j ACCEPT
+-A INPUT -p tcp -m state --state NEW -m tcp --dport 80 -j ACCEPT
+-A INPUT -p tcp -m state --state NEW -m tcp --dport 443 -j ACCEPT
+-A INPUT -p tcp -m state --state NEW -m tcp --dport 3000 -j ACCEPT
+-A INPUT -p tcp -m state --state NEW -m tcp --dport 7946 -j ACCEPT
+-A INPUT -p udp -m state --state NEW -m udp --dport 7946 -j ACCEPT
+-A INPUT -p tcp -m state --state NEW -m tcp --dport 4789 -j ACCEPT
+-A INPUT -p udp -m state --state NEW -m udp --dport 4789 -j ACCEPT
+-A INPUT -p tcp -m state --state NEW -m tcp --dport 2377 -j ACCEPT
+-A INPUT -p udp -m state --state NEW -m udp --dport 2377 -j ACCEPT
+-A INPUT -p tcp -m state --state NEW -m tcp --dport 996 -j ACCEPT
+-A INPUT -j REJECT --reject-with icmp-host-prohibited
+-A FORWARD -j REJECT --reject-with icmp-host-prohibited
+-A OUTPUT -d 169.254.0.0/16 -j InstanceServices
+-A InstanceServices -d 169.254.0.2/32 -p tcp -m owner --uid-owner 0 -m tcp --dport 3260 -j ACCEPT
+-A InstanceServices -d 169.254.2.0/24 -p tcp -m owner --uid-owner 0 -m tcp --dport 3260 -j ACCEPT
+-A InstanceServices -d 169.254.4.0/24 -p tcp -m owner --uid-owner 0 -m tcp --dport 3260 -j ACCEPT
+-A InstanceServices -d 169.254.5.0/24 -p tcp -m owner --uid-owner 0 -m tcp --dport 3260 -j ACCEPT
+-A InstanceServices -d 169.254.0.2/32 -p tcp -m tcp --dport 80 -j ACCEPT
+-A InstanceServices -d 169.254.169.254/32 -p udp -m udp --dport 53 -j ACCEPT
+-A InstanceServices -d 169.254.169.254/32 -p tcp -m tcp --dport 53 -j ACCEPT
+-A InstanceServices -d 169.254.0.3/32 -p tcp -m owner --uid-owner 0 -m tcp --dport 80 -j ACCEPT
+-A InstanceServices -d 169.254.0.4/32 -p tcp -m tcp --dport 80 -j ACCEPT
+-A InstanceServices -d 169.254.169.254/32 -p tcp -m tcp --dport 80 -j ACCEPT
+-A InstanceServices -d 169.254.169.254/32 -p udp -m udp --dport 67 -j ACCEPT
+-A InstanceServices -d 169.254.169.254/32 -p udp -m udp --dport 69 -j ACCEPT
+-A InstanceServices -d 169.254.169.254/32 -p udp --dport 123 -j ACCEPT
+-A InstanceServices -d 169.254.0.0/16 -p tcp -m tcp -j REJECT --reject-with tcp-reset
+-A InstanceServices -d 169.254.0.0/16 -p udp -m udp -j REJECT --reject-with icmp-port-unreachable
+COMMIT
