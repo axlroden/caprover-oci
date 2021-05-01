@@ -70,7 +70,7 @@ Create a wildcard A record for your domain, like *.cap.example.org, at your dns 
 Once the DNS is propegated, finish the installation.
 
     npm i -g caprover
-    caprover serverseup
+    caprover serversetup
 
 Follow the instructions and Letsencrypt certs, passwords etc will be created and you can reach your new caprover instance.
 
