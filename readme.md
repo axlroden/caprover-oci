@@ -1,6 +1,8 @@
 # Install caprover to an always free Oracle Compute Instance
 These are ansible scripts to automate most of the tedius things needed to get a caprover instance up on a free oracle compute instance.
 
+# DISCLAIMER: This does not work flawlessly anymore, lots of things have to be edited to function.
+
 I have instructions for getting ansible and dependencies up on a Mac running Big Sur as well.
 
 ## Get account and API setup
